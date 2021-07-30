@@ -1,47 +1,21 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import SearchBar from './components/SearchBar'
 import Cards from './components/Cards'
-import image from './images/placeholder.jpg'
 
 function App() {
-  const [references, setReferences] = useState([
-    {
-      id: 1,
-      image: image
-    },
-    {
-      id: 2,
-      image: image
-    },
-    {
-      id: 3,
-      image: image
-    },
-    {
-      id: 4,
-      image: image
-    },
-    {
-      id: 5,
-      image: image
-    },
-    {
-      id: 6,
-      image: image
-    },
-    {
-      id: 7,
-      image: image
-    },
-    {
-      id: 8,
-      image: image
-    }
-  ])
+  const [references, setReferences] = useState([])
+  const [data, setData] = useState(null)
+
+  useEffect(() => {
+    fetch("/api")
+      .then((res) => res.json())
+      .then((data) => setData(data.message))
+  });
 
   return (
     <div className="App">
       <SearchBar />
+      <h1>{data}</h1>
       <Cards references={references} />
     </div>
   );
