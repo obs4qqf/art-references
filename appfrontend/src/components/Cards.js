@@ -1,9 +1,9 @@
 import Card from './Card'
 
-const Cards = ({references}) => {
+const Cards = ({references, enlargeImage}) => {
     return (
         <div id="cards-grid">
-            {references.map(reference => <Card key={reference.id} reference={reference} />)}
+            {references.map(reference => <Card key={reference.id} reference={reference} enlargeImage={enlargeImage}/>)}
         </div>
     )
 }

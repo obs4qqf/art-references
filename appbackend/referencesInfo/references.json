@@ -1,34 +1,42 @@
 [
     {
         "id": 1,
-        "image": "./placeholder.jpg"
+        "image": "./placeholder.jpg",
+        "tags": []
     },
     {
         "id": 2,
-        "image": "./placeholder.jpg"
+        "image": "./placeholder.jpg",
+        "tags": []
     },
     {
         "id": 3,
-        "image": "./placeholder.jpg"
+        "image": "./placeholder.jpg",
+        "tags": []
     },
     {
         "id": 4,
-        "image": "./placeholder.jpg"
+        "image": "./placeholder.jpg",
+        "tags": []
     },
     {
         "id": 5,
-        "image": "./placeholder.jpg"
+        "image": "./placeholder.jpg",
+        "tags": []
     },
     {
         "id": 6,
-        "image": "./placeholder.jpg"
+        "image": "./placeholder.jpg",
+        "tags": []
     },
     {
         "id": 7,
-        "image": "./placeholder.jpg"
+        "image": "./placeholder.jpg",
+        "tags": []
     },
     {
         "id": 8,
-        "image": "./placeholder.jpg"
+        "image": "./placeholder.jpg",
+        "tags": []
     }
 ]

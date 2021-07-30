@@ -19,3 +19,11 @@
     margin: 10px;
     width: 280px;
 }
+
+#expanded-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
