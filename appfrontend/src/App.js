@@ -27,11 +27,15 @@ function App() {
     setClickedImage(null)
   }
 
+  const addTag = (id, tag) => {
+    console.log(id, tag)
+  }
+
   return (
     <div className="app">
       <SearchBar />
       <Cards references={references} enlargeImage={enlargeImage} />
-      {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage}/>}
+      {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage} addTag={addTag}/>}
     </div>
   );
 }

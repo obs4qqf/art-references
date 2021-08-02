@@ -2,7 +2,7 @@
     {
         "id": 1,
         "image": "./placeholder.jpg",
-        "tags": []
+        "tags": ["hi","there"]
     },
     {
         "id": 2,
