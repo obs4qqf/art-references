@@ -1,14 +1,14 @@
-const ExpandedCard = ({clickedImage, minimizeImage, addTag}) => {
+const ExpandedCard = ({clickedImageID, minimizeImage, addTag, references}) => {
     const keyDownEvent = (e) => {
         if (e.key === 'Enter') {
-            addTag(clickedImage.id, e.target.value)
+            addTag(clickedImageID, e.target.value)
           }
     }
 
     const displayTags = () => {
         let counter = 1
         let tags = ""
-        clickedImage.tags.map(tag => {
+        getImage(clickedImageID).tags.map(tag => {
             if (counter === 1) {
                 tags = tag
             } else {
@@ -19,9 +19,14 @@ const ExpandedCard = ({clickedImage, minimizeImage, addTag}) => {
         return tags
     }
 
+    const getImage = (id) => {
+        const image = references.filter(reference => reference.id === id)
+        return image[0]
+    }
+
     return (
         <div id="expanded-card">
-            <img src={clickedImage.image} alt="Expanded Image" />
+            <img src={getImage(clickedImageID).image} alt="Expanded Image" />
             <i className="fas fa-times fa-3x" onClick={minimizeImage}></i>
             <input type="text" onKeyDown={keyDownEvent} />
             <p>{displayTags()}</p>

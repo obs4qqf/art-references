@@ -5,7 +5,7 @@ import ExpandedCard from './components/ExpandedCard'
 
 function App() {
   const [references, setReferences] = useState([])
-  const [clickedImage, setClickedImage] = useState(null)
+  const [clickedImageID, setClickedImageID] = useState(null)
 
   useEffect(() => {
     const getReferences = async () => {
@@ -24,12 +24,11 @@ function App() {
   }
 
   const enlargeImage = (id) => {
-    const image = references.filter(reference => reference.id === id)
-    setClickedImage(image[0])
+    setClickedImageID(id)
   }
 
   const minimizeImage = () => {
-    setClickedImage(null)
+    setClickedImageID(null)
   }
 
   const addTag = async (id, tag) => {
@@ -51,7 +50,7 @@ function App() {
     <div className="app">
       <SearchBar />
       <Cards references={references} enlargeImage={enlargeImage} />
-      {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage} addTag={addTag}/>}
+      {clickedImageID !== null && <ExpandedCard clickedImageID={clickedImageID} minimizeImage={minimizeImage} addTag={addTag} references={references} />}
     </div>
   );
 }
