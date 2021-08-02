@@ -23,11 +23,15 @@ function App() {
     setClickedImage(image[0])
   }
 
+  const minimizeImage = () => {
+    setClickedImage(null)
+  }
+
   return (
     <div className="app">
       <SearchBar />
       <Cards references={references} enlargeImage={enlargeImage} />
-      {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} />}
+      {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage}/>}
     </div>
   );
 }
