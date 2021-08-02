@@ -21,6 +21,17 @@ app.get('/references', (req, res) => {
         .catch(err => console.log(err));
 })
 
+app.get('/references/:tag', (req, res) => {
+    const {tag} = req.params
+    fsp.readFile(path.join(__dirname, '/referencesInfo', 'references.json'))
+        .then(data => {
+            newData = JSON.parse(data);
+            sortedData = newData.filter(reference => reference.tags.includes(tag))
+            res.json(sortedData)
+        })
+        .catch(err => console.log(err));
+})
+
 app.put('/references/:id', (req, res) => {
     const {id} = req.params
     const {tagName} = req.body

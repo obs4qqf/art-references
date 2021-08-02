@@ -1,7 +1,8 @@
 const ExpandedCard = ({clickedImageID, minimizeImage, addTag, references}) => {
-    const keyDownEvent = (e) => {
+    const enterTag = (e) => {
         if (e.key === 'Enter') {
             addTag(clickedImageID, e.target.value)
+            e.target.value = ''
           }
     }
 
@@ -28,7 +29,7 @@ const ExpandedCard = ({clickedImageID, minimizeImage, addTag, references}) => {
         <div id="expanded-card">
             <img src={getImage(clickedImageID).image} alt="Expanded Image" />
             <i className="fas fa-times fa-3x" onClick={minimizeImage}></i>
-            <input type="text" onKeyDown={keyDownEvent} />
+            <input type="text" onKeyDown={enterTag} />
             <p>{displayTags()}</p>
         </div>
     )

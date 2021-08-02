@@ -12,7 +12,6 @@ function App() {
       const res = await retrieveRefs()
       setReferences(res)
     }
-    console.log('hi')
     getReferences()
   }, []);
 
@@ -32,7 +31,6 @@ function App() {
   }
 
   const addTag = async (id, tag) => {
-    console.log(id, tag)
     const res = await fetch(`/references/${id}`, {
       method: 'PUT',
       headers: {
@@ -46,9 +44,15 @@ function App() {
     setReferences(data)
   }
 
+  const getRefByTag = async (tag) => {
+    const res = await fetch(`/references/${tag}`)
+    const data = await res.json()
+    setReferences(data)
+  }
+
   return (
     <div className="app">
-      <SearchBar />
+      <SearchBar getRefByTag={getRefByTag}/>
       <Cards references={references} enlargeImage={enlargeImage} />
       {clickedImageID !== null && <ExpandedCard clickedImageID={clickedImageID} minimizeImage={minimizeImage} addTag={addTag} references={references} />}
     </div>

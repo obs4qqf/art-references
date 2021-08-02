@@ -18,6 +18,7 @@
 .card img {
     margin: 10px;
     width: 280px;
+    cursor: pointer;
 }
 
 #expanded-card {

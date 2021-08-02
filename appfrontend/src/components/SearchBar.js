@@ -1,9 +1,15 @@
-const SearchBar = () => {
+const SearchBar = ({getRefByTag}) => {
+    const searchTag = (e) => {
+        if (e.key === 'Enter') {
+            getRefByTag(e.target.value)
+            e.target.value = ''
+        }
+    }
+
     return (
         <div id="search">
-            <h1>Enter a keyword to search:</h1>
-            <input type="text" />
-            <button>Search</button>
+            <h1>Input a keyword and press enter to search:</h1>
+            <input type="text" onKeyDown={searchTag}/>
         </div>
     )
 }
