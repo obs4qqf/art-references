@@ -33,6 +33,10 @@ app.put('/references/:id', (req, res) => {
                 }
             })
             fsp.writeFile(path.join(__dirname, '/referencesInfo', 'references.json'), JSON.stringify(newData, null, 2), err => console.log(err))
+                .then(() => {
+                    res.json(newData)
+                })
+                .catch(err => console.log(err))
         })
         .catch(err => console.log(err));
 })

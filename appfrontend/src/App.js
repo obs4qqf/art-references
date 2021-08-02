@@ -9,14 +9,19 @@ function App() {
 
   useEffect(() => {
     const getReferences = async () => {
-      const res = await fetch("/references")
-      const loadedData = await res.json()
-      console.log(loadedData)
-      setReferences(loadedData)
+      const res = await retrieveRefs()
+      setReferences(res)
     }
-    
+    console.log('hi')
     getReferences()
   }, []);
+
+  const retrieveRefs = async () => {
+    const res = await fetch("/references")
+    const loadedData = await res.json()
+    console.log(loadedData)
+    return loadedData
+  }
 
   const enlargeImage = (id) => {
     const image = references.filter(reference => reference.id === id)
@@ -39,7 +44,7 @@ function App() {
       })
     })
     const data = await res.json()
-    console.log(data)
+    setReferences(data)
   }
 
   return (
