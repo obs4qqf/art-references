@@ -2,7 +2,6 @@ const SearchBar = ({getRefByTag}) => {
     const searchTag = (e) => {
         if (e.key === 'Enter') {
             getRefByTag(e.target.value)
-            e.target.value = ''
         }
     }
 

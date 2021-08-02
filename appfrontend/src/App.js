@@ -45,7 +45,7 @@ function App() {
   }
 
   const getRefByTag = async (tag) => {
-    const res = await fetch(`/references/${tag}`)
+    const res = tag === '' ? await fetch(`/references`) : await fetch(`/references/${tag}`)
     const data = await res.json()
     setReferences(data)
   }
