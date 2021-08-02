@@ -27,8 +27,19 @@ function App() {
     setClickedImage(null)
   }
 
-  const addTag = (id, tag) => {
+  const addTag = async (id, tag) => {
     console.log(id, tag)
+    const res = await fetch(`/references/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        tagName: tag
+      })
+    })
+    const data = await res.json()
+    console.log(data)
   }
 
   return (
