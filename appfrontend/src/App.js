@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import SearchBar from './components/SearchBar'
 import Cards from './components/Cards'
 import ExpandedCard from './components/ExpandedCard'
+import ReferenceUpload from './components/ReferenceUpload'
 
 function App() {
   const [references, setReferences] = useState([])
@@ -45,7 +46,6 @@ function App() {
     const data = await res.json()
     setReferences(data)
     const image = data.filter(reference => reference.id === id)
-    console.log('hi')
     setClickedImage(image[0])
   }
 
@@ -58,6 +58,7 @@ function App() {
   return (
     <div className="app">
       <SearchBar getRefByTag={getRefByTag}/>
+      <ReferenceUpload />
       <Cards references={references} enlargeImage={enlargeImage} />
       {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage} addTag={addTag} references={references} />}
     </div>
