@@ -1,6 +1,21 @@
 const express = require("express");
 const fsp = require('fs').promises
 const path = require('path')
+const db = require('./firebase')
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "./images/");
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+const upload = multer({
+    storage: storage
+})
 
 const app = express();
 
@@ -50,6 +65,10 @@ app.put('/references/:id', (req, res) => {
                 .catch(err => console.log(err))
         })
         .catch(err => console.log(err));
+})
+
+app.post('/references', upload.single('file'),  (req, res) => {
+    console.log('Files uploaded?')
 })
 
 const PORT = process.env.PORT || 5000;
