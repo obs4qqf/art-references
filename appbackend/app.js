@@ -1,7 +1,8 @@
 const express = require("express");
 const fsp = require('fs').promises
 const path = require('path')
-const db = require('./firebase')
+const db = require('./firebase').db
+const bucket = require('./firebase').bucket
 const multer = require('multer')
 
 const storage = multer.diskStorage({
@@ -68,6 +69,7 @@ app.put('/references/:id', (req, res) => {
 })
 
 app.post('/references', upload.single('file'),  (req, res) => {
+    console.log(req.file)
     console.log('Files uploaded?')
 })
 
