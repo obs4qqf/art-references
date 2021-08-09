@@ -14,6 +14,7 @@ const ReferenceUpload = () => {
         // setFile(e.target[0].files[0])
         // console.log(e.target[0].files[0])
         const form = new FormData()
+        console.log(file)
         form.append('file', file)
         fetch('/references', {
             method: 'POST',

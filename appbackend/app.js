@@ -71,6 +71,16 @@ app.put('/references/:id', (req, res) => {
 app.post('/references', upload.single('file'),  (req, res) => {
     console.log(req.file)
     console.log('Files uploaded?')
+    try {
+        bucket.upload(req.file.destination+req.file.filename, {
+            destination: 'newfile',
+            metadata: {
+                contentType: 'image/jpeg'
+            }
+          });
+    } catch (e) {
+        console.log(e)
+    }
 })
 
 const PORT = process.env.PORT || 5000;
