@@ -3,24 +3,28 @@ import SearchBar from './components/SearchBar'
 import Cards from './components/Cards'
 import ExpandedCard from './components/ExpandedCard'
 import ReferenceUpload from './components/ReferenceUpload'
+import {firestore} from './firebase/firebase'
 
 function App() {
   const [references, setReferences] = useState([])
   const [clickedImage, setClickedImage] = useState(null)
 
   useEffect(() => {
-    const getReferences = async () => {
-      const res = await retrieveRefs()
-      setReferences(res)
-    }
-    getReferences()
+    
   }, []);
 
-  const retrieveRefs = async () => {
-    const res = await fetch("/references")
-    const loadedData = await res.json()
-    console.log(loadedData)
-    return loadedData
+  const retrieveRefs = () => {
+    const unsubscribe = firestore.collection('images').onSnapshot((snapshot) => {
+      let images = []
+      snapshot.forEach(image => {
+        images.push({...image.data(), ...image.id})
+        console.log('loop1')
+      })
+      console.log('loop2')
+      setReferences(images)
+    })
+
+    unsubscribe()
   }
 
   const enlargeImage = (id) => {
@@ -58,7 +62,7 @@ function App() {
   return (
     <div className="app">
       <SearchBar getRefByTag={getRefByTag}/>
-      <ReferenceUpload />
+      <ReferenceUpload retrieveRefs={retrieveRefs}/>
       <Cards references={references} enlargeImage={enlargeImage} />
       {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage} addTag={addTag} references={references} />}
     </div>

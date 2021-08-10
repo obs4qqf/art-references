@@ -7,5 +7,6 @@ firebase.initializeApp(firebaseFile);
 
 const storage = firebase.storage();
 const firestore = firebase.firestore();
+const currentTime = firebase.firestore.FieldValue.serverTimestamp;
 
-export {storage, firestore};
+export {storage, firestore, currentTime};

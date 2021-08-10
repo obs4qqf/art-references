@@ -1,8 +1,8 @@
 import React from 'react'
 import {useState} from 'react'
-import {storage} from '../firebase/firebase'
+import {storage, firestore, currentTime} from '../firebase/firebase'
 
-const ReferenceUpload = () => {
+const ReferenceUpload = ({retrieveRefs}) => {
     const [file, setFile] = useState(null)
     const [fileName, setFileName] = useState(null)
     const [error, setError] = useState(null)
@@ -18,6 +18,7 @@ const ReferenceUpload = () => {
         e.preventDefault()
         console.log(file)
         const storageRef = storage.ref();
+        const collectionRef = firestore.collection('images')
         const fileRef = storageRef.child(`images/${file.name}`)
         const uploadTask = fileRef.put(file)
         uploadTask.on('state_changed', 
@@ -29,8 +30,11 @@ const ReferenceUpload = () => {
             }, async () => {
                 const newUrl = await uploadTask.snapshot.ref.getDownloadURL()
                 setUrl(newUrl)
+                const time = currentTime();
+                collectionRef.add({url: newUrl, uploadedTime: time})
                 setFileName(null)
                 setError(null)
+                retrieveRefs()
             })
     }
 
