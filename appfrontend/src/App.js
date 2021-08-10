@@ -18,7 +18,7 @@ function App() {
     // const unsubscribe = firestore.collection('images').onSnapshot((snapshot) => {
     //   let images = []
     //   snapshot.forEach(image => {
-    //     images.push({...image.data(), ...image.id})
+    //     images.push({...image.data(), id: image.id})
     //     console.log('loop1')
     //   })
     //   console.log('loop2')
@@ -59,9 +59,22 @@ function App() {
   }
 
   const getRefByTag = async (tag) => {
-    const res = tag === '' ? await fetch(`/references`) : await fetch(`/references/${tag}`)
-    const data = await res.json()
-    setReferences(data)
+    if (tag === '') {
+      retrieveRefs()
+    } else {
+      const collectionRef = firestore.collection('images')
+      collectionRef.where('tags','array-contains', tag).get()
+        .then(snapshot => {
+          let images = []
+          snapshot.forEach(image => {
+            images.push({...image.data(), id: image.id})
+            console.log('loop1again')
+          })
+          console.log('loop2again')
+          setReferences(images)
+        })
+      console.log('done')
+    }
   }
 
   return (
