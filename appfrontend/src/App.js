@@ -10,21 +10,31 @@ function App() {
   const [clickedImage, setClickedImage] = useState(null)
 
   useEffect(() => {
-    
+    retrieveRefs()
   }, []);
 
   const retrieveRefs = () => {
-    const unsubscribe = firestore.collection('images').onSnapshot((snapshot) => {
+    // const unsubscribe = firestore.collection('images').onSnapshot((snapshot) => {
+    //   let images = []
+    //   snapshot.forEach(image => {
+    //     images.push({...image.data(), ...image.id})
+    //     console.log('loop1')
+    //   })
+    //   console.log('loop2')
+    //   setReferences(images)
+    // })
+
+    // unsubscribe()
+
+    firestore.collection('images').orderBy('uploadedTime','desc').get().then(snapshot => {
       let images = []
       snapshot.forEach(image => {
-        images.push({...image.data(), ...image.id})
+        images.push({...image.data(), id: image.id})
         console.log('loop1')
       })
       console.log('loop2')
       setReferences(images)
     })
-
-    unsubscribe()
   }
 
   const enlargeImage = (id) => {

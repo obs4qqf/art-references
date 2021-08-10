@@ -22,7 +22,7 @@ const ExpandedCard = ({clickedImage, minimizeImage, addTag, references}) => {
 
     return (
         <div id="expanded-card">
-            <img src={clickedImage.image} alt="Expanded Image" />
+            <img src={clickedImage.url} alt="Expanded Image" />
             <i className="fas fa-times fa-3x" onClick={minimizeImage}></i>
             <input type="text" onKeyDown={enterTag} />
             <p>{displayTags()}</p>

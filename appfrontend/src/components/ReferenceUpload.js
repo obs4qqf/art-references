@@ -31,7 +31,7 @@ const ReferenceUpload = ({retrieveRefs}) => {
                 const newUrl = await uploadTask.snapshot.ref.getDownloadURL()
                 setUrl(newUrl)
                 const time = currentTime();
-                collectionRef.add({url: newUrl, uploadedTime: time})
+                collectionRef.add({url: newUrl, uploadedTime: time, tags: []})
                 setFileName(null)
                 setError(null)
                 retrieveRefs()
