@@ -4,6 +4,7 @@ import Cards from './components/Cards'
 import ExpandedCard from './components/ExpandedCard'
 import ReferenceUpload from './components/ReferenceUpload'
 import {firestore} from './firebase/firebase'
+import firebase from "firebase/app";
 
 function App() {
   const [references, setReferences] = useState([])
@@ -34,12 +35,15 @@ function App() {
       })
       console.log('loop2')
       setReferences(images)
+      if (clickedImage) {
+        const image = images.filter(reference => reference.id === clickedImage.id)
+        setClickedImage(image[0])
+      }
     })
   }
 
   const enlargeImage = (id) => {
     const image = references.filter(reference => reference.id === id)
-    console.log('hi')
     setClickedImage(image[0])
   }
 
@@ -48,19 +52,10 @@ function App() {
   }
 
   const addTag = async (id, tag) => {
-    const res = await fetch(`/references/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        tagName: tag
-      })
-    })
-    const data = await res.json()
-    setReferences(data)
-    const image = data.filter(reference => reference.id === id)
-    setClickedImage(image[0])
+    const imageRef = firestore.collection('images').doc(id)
+    imageRef.update({
+      tags: firebase.firestore.FieldValue.arrayUnion(tag)
+    }).then(() => retrieveRefs())
   }
 
   const getRefByTag = async (tag) => {
