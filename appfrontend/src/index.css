@@ -21,7 +21,7 @@
     cursor: pointer;
 }
 
-#expanded-card {
+#expanded-card-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -30,16 +30,22 @@
     background-color: rgba(0,0,0,.6);
 }
 
-#expanded-card img {
-    display: inline-block;
+#expanded-card {
     position: fixed;
     top: 50%;
     left: 50%;
+    width: 100%;
     transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-#expanded-card-grid {
-    display: flex;
+#card-desc {
+    display: inline-block;
+    width: 20%;
+    background-color: #cae1ff;
+    padding: 10px;
 }
 
 .fa-times.fa-3x {
@@ -55,7 +61,6 @@ form input[type='file'] {
 
 .tag-input-area {
     display: inline-block;
-    margin: 20px;
     width: 20%;
 }
 
