@@ -58,6 +58,13 @@ function App() {
     }).then(() => retrieveRefs())
   }
 
+  const deleteTag = (id, tag) => {
+    const imageRef = firestore.collection('images').doc(id)
+    imageRef.update({
+      tags: firebase.firestore.FieldValue.arrayRemove(tag)
+    }).then(() => retrieveRefs())
+  }
+
   const getRefByTag = async (tag) => {
     if (tag === '') {
       retrieveRefs()
@@ -82,7 +89,7 @@ function App() {
       <SearchBar getRefByTag={getRefByTag}/>
       <ReferenceUpload retrieveRefs={retrieveRefs}/>
       <Cards references={references} enlargeImage={enlargeImage} />
-      {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage} addTag={addTag} references={references} />}
+      {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage} addTag={addTag} references={references} deleteTag={deleteTag}/>}
     </div>
   );
 }
