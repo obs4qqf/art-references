@@ -89,7 +89,7 @@ function App() {
       <SearchBar getRefByTag={getRefByTag}/>
       <ReferenceUpload retrieveRefs={retrieveRefs}/>
       <Cards references={references} enlargeImage={enlargeImage} />
-      {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage} addTag={addTag} references={references} deleteTag={deleteTag}/>}
+      {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage} addTag={addTag} references={references} deleteTag={deleteTag} retrieveRefs={retrieveRefs}/>}
     </div>
   );
 }

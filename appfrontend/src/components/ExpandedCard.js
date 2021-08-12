@@ -1,7 +1,7 @@
 import TagsList from "./TagsList"
 import CardDescription from "./CardDescription"
 
-const ExpandedCard = ({clickedImage, minimizeImage, addTag, deleteTag}) => {
+const ExpandedCard = ({clickedImage, minimizeImage, addTag, deleteTag, retrieveRefs}) => {
     const enterTag = (e) => {
         if (e.key === 'Enter') {
             addTag(clickedImage.id, e.target.value)
@@ -20,7 +20,7 @@ const ExpandedCard = ({clickedImage, minimizeImage, addTag, deleteTag}) => {
                     <img src={clickedImage.url} alt="Expanded Image" />
                     <i className="fas fa-times fa-3x" onClick={minimizeImage}></i>
                 </div>
-                <CardDescription/>
+                <CardDescription retrieveRefs={retrieveRefs} id={clickedImage.id}/>
             </div>
         </div>
     )
