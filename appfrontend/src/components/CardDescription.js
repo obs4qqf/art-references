@@ -3,6 +3,7 @@ import { firestore } from '../firebase/firebase'
 
 const CardDescription = ({retrieveRefs, id, desc}) => {
     const [description, setDescription] = useState('')
+    const [editTask, setEditTask] = useState(false)
 
     const onChangeDesc = (e) => {
         setDescription(e.target.value)
@@ -28,12 +29,22 @@ const CardDescription = ({retrieveRefs, id, desc}) => {
     return (
         <div id="card-desc">
             <h4>Description:</h4>
-            {desc !== null && <p>{desc.text}</p>}
-            {desc !== null && <p>Edited on {desc.time}</p>}
-            <form onSubmit={postHandler}>
-                <textarea name="card-description" value={description} onChange={onChangeDesc} />
-                <input type="submit" name="submit" value="Submit" />
-            </form>
+            {(desc !== null && editTask !== true) &&
+                <>
+                    <button onClick={() => setEditTask(!editTask)}>{editTask ? 'Save': 'Edit'}</button>
+                    <p>{desc.text}</p>
+                    <p>Edited on {desc.time}</p>
+                </>
+            }
+            {(desc === null || (desc !== null && editTask === true)) && 
+                <>
+                    <form onSubmit={postHandler}>
+                        <textarea name="card-description" value={description} onChange={onChangeDesc} />
+                        <input type="submit" name="submit" value={editTask ? "Save ": "Submit"} />
+                    </form>
+                    {desc !== null && <button onClick={() => setEditTask(!editTask)}>Cancel</button>}
+                </>
+            }
         </div>
     )
 }
