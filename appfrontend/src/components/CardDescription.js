@@ -1,7 +1,7 @@
 import {useState} from 'react'
-import { firestore, currentTime } from '../firebase/firebase'
+import { firestore } from '../firebase/firebase'
 
-const CardDescription = ({retrieveRefs, id}) => {
+const CardDescription = ({retrieveRefs, id, desc}) => {
     const [description, setDescription] = useState('')
 
     const onChangeDesc = (e) => {
@@ -10,22 +10,26 @@ const CardDescription = ({retrieveRefs, id}) => {
 
     const postHandler = (e) => {
         e.preventDefault()
-        const time = currentTime();
+        const dateData = new Date()
+        const date = dateData.toLocaleDateString()
+        const currentTime = dateData.toLocaleTimeString()
+        const dateFull = `${date} at ${currentTime}`
         const imageRef = firestore.collection('images').doc(id)
         imageRef.update({
             description: {
                 text: description,
-                time: time
+                time: dateFull
             }
         })
         setDescription('')
-        console.log('done')
+        retrieveRefs()
     }
 
     return (
         <div id="card-desc">
             <h4>Description:</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore eos ea cum sunt sint ullam aliquam excepturi officia voluptates voluptatum. Facere a, doloribus molestias omnis ad reprehenderit aperiam voluptates quo!</p>
+            {desc !== null && <p>{desc.text}</p>}
+            {desc !== null && <p>Edited on {desc.time}</p>}
             <form onSubmit={postHandler}>
                 <textarea name="card-description" value={description} onChange={onChangeDesc} />
                 <input type="submit" name="submit" value="Submit" />

@@ -9,6 +9,11 @@ const ExpandedCard = ({clickedImage, minimizeImage, addTag, deleteTag, retrieveR
           }
     }
 
+    const getCardDesc = (clickedImage) => {
+        const description = clickedImage.description ? clickedImage.description : null
+        return description
+    }
+
     return (
         <div id="expanded-card-background">
             <div id="expanded-card">
@@ -20,7 +25,7 @@ const ExpandedCard = ({clickedImage, minimizeImage, addTag, deleteTag, retrieveR
                     <img src={clickedImage.url} alt="Expanded Image" />
                     <i className="fas fa-times fa-3x" onClick={minimizeImage}></i>
                 </div>
-                <CardDescription retrieveRefs={retrieveRefs} id={clickedImage.id}/>
+                <CardDescription retrieveRefs={retrieveRefs} id={clickedImage.id} desc={getCardDesc(clickedImage)}/>
             </div>
         </div>
     )
