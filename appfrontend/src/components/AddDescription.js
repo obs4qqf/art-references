@@ -1,9 +1,8 @@
 import {useState} from 'react'
 import { firestore } from '../firebase/firebase'
 
-const AddDescription = ({retrieveRefs, id, desc}) => {
+const AddDescription = ({retrieveRefs, id, changeAddDesc}) => {
     const [newDesc, setNewDesc] = useState('')
-    const [addDesc, setAddDesc] = useState(false)
 
     const onChangeNewDesc = (e) => {
         setNewDesc(e.target.value)
@@ -22,27 +21,15 @@ const AddDescription = ({retrieveRefs, id, desc}) => {
                 time: dateFull
             }
         }).then(() => retrieveRefs())
-        if (addDesc === true) {
-            setAddDesc(false)
-        }
+        changeAddDesc()
         console.log("post handler")
     }
 
     return (
-        <div>
-            {(desc === null && addDesc !== true) && 
-                <button onClick={() => setAddDesc(true)}>Add Description</button>
-            }
-            {(desc === null && addDesc === true) &&
-                <>
-                    <form onSubmit={postHandler}>
-                        <textarea name="card-description" value={newDesc} onChange={onChangeNewDesc} />
-                        <input type="submit" name="submit" value="Submit" />
-                    </form>
-                    <button onClick={() => setAddDesc(false)}>Cancel</button>
-                </>
-            }
-        </div>
+        <form onSubmit={postHandler}>
+            <textarea name="card-description" value={newDesc} onChange={onChangeNewDesc} />
+            <input type="submit" name="submit" value="Submit" />
+        </form>
     )
 }
 

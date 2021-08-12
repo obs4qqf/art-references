@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react'
 import { firestore } from '../firebase/firebase'
 
-const EditDescription = ({retrieveRefs, id, desc}) => {
-    const [updatedDesc, setUpdatedDesc] = useState('')
-    const [editDesc, setEditDesc] = useState(false)
+const EditDescription = ({retrieveRefs, id, desc, changeEditDesc}) => {
+    const [updatedDesc, setUpdatedDesc] = useState(desc.text)
 
     useEffect(() => {
         setUpdatedDesc(desc.text)
@@ -27,31 +26,15 @@ const EditDescription = ({retrieveRefs, id, desc}) => {
                 time: dateFull
             }
         }).then(() => retrieveRefs())
-        if (editDesc === true) {
-            setEditDesc(false)
-        }
+        changeEditDesc()
         console.log("update handler")
     }
 
     return (
-        <div>
-            {(desc !== null && editDesc !== true) && 
-                <>
-                    <button onClick={() => setEditDesc(true)}>'Edit'</button>
-                    <p>{desc.text}</p>
-                    <p>Edited on {desc.time}</p>
-                </>
-            }
-            {(desc !== null && editDesc === true) &&
-                <>
-                    <form onSubmit={updateHandler}>
-                        <textarea name="card-description" value={updatedDesc} onChange={onChangeUpdatedDesc} />
-                        <input type="submit" name="submit" value="Save"/>
-                    </form>
-                    {desc !== null && <button onClick={() => setEditDesc(false)}>Cancel</button>}
-                </>
-            }
-        </div>
+        <form onSubmit={updateHandler}>
+            <textarea name="card-description" value={updatedDesc} onChange={onChangeUpdatedDesc} />
+            <input type="submit" name="submit" value="Save"/>
+        </form>
     )
 }
 
