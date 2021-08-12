@@ -1,9 +1,13 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { firestore } from '../firebase/firebase'
 
 const CardDescription = ({retrieveRefs, id, desc}) => {
-    const [description, setDescription] = useState('')
+    const [description, setDescription] = useState(desc.text)
     const [editTask, setEditTask] = useState(false)
+
+    useEffect(() => {
+        setDescription(desc.text)
+    }, [desc.time])
 
     const onChangeDesc = (e) => {
         setDescription(e.target.value)
@@ -21,9 +25,10 @@ const CardDescription = ({retrieveRefs, id, desc}) => {
                 text: description,
                 time: dateFull
             }
-        })
-        setDescription('')
-        retrieveRefs()
+        }).then(() => retrieveRefs())
+        if (editTask === true) {
+            setEditTask(false)
+        }
     }
 
     return (
@@ -31,7 +36,7 @@ const CardDescription = ({retrieveRefs, id, desc}) => {
             <h4>Description:</h4>
             {(desc !== null && editTask !== true) &&
                 <>
-                    <button onClick={() => setEditTask(!editTask)}>{editTask ? 'Save': 'Edit'}</button>
+                    <button onClick={() => setEditTask(!editTask)}>'Edit'</button>
                     <p>{desc.text}</p>
                     <p>Edited on {desc.time}</p>
                 </>
