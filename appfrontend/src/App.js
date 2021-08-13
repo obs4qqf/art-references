@@ -5,6 +5,7 @@ import ExpandedCard from './components/ExpandedCard'
 import ReferenceUpload from './components/ReferenceUpload'
 import {firestore} from './firebase/firebase'
 import firebase from "firebase/app";
+import TagTree from './components/TagTree'
 
 function App() {
   const [references, setReferences] = useState([])
@@ -90,6 +91,7 @@ function App() {
       <ReferenceUpload retrieveRefs={retrieveRefs}/>
       <Cards references={references} enlargeImage={enlargeImage} />
       {clickedImage !== null && <ExpandedCard clickedImage={clickedImage} minimizeImage={minimizeImage} addTag={addTag} references={references} deleteTag={deleteTag} retrieveRefs={retrieveRefs}/>}
+      <TagTree />
     </div>
   );
 }
